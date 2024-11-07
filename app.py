@@ -2,10 +2,13 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO, send
 from datetime import datetime
 import logging
+import eventlet
+
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet')
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
